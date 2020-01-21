@@ -75,6 +75,12 @@ def merge(*args):
     merged.set_index('zipcode')
     del merged['rate_y']
 
+    """
+    using sets was handy to quickly filter out dupes, but it leads to the output
+    not being correct...ran out of time to fix this but a list comprehension would've
+    done the trick
+    """
+
     return merged
 
 
