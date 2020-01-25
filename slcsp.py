@@ -18,9 +18,9 @@ def load_data():
         './data/plans.csv', dtype={'rate_area': 'str'}, index_col=['state', 'rate_area'])
     areas_by_zip = pd.read_csv('./data/zips.csv', dtype={
                                'zipcode': 'str', 'rate_area': 'str', 'county_code': 'str'}, index_col=['state', 'rate_area'])
-    ouput = pd.read_csv(
+    zips_for_query = pd.read_csv(
         './data/slcsp.csv', dtype={'zipcode': 'str', 'rate_area': 'str'})
-    return plans_by_area, areas_by_zip, ouput
+    return plans_by_area, areas_by_zip, zips_for_query
 
 
 def return_benchmark_plans():
@@ -53,7 +53,7 @@ def merge(*args):
     big ol mess here
     """
     only_output_zips = areas_by_zip[areas_by_zip['zipcode'].isin(
-        ouput['zipcode'])]
+        zips_for_query['zipcode'])]
     only_output_zips.index = only_output_zips.index.to_flat_index()
     zips_to_plans = pd.merge(only_output_zips, return_benchmark_plans(), left_index=True,
                              right_index=True, how='inner')
@@ -62,12 +62,14 @@ def merge(*args):
 
 
 def output(data):
-    data.to_csv(sys.stdout)
+    data.to_csv(sys.stdout, index=False)
 
 
 if __name__ == '__main__':
-    plans_by_area, areas_by_zip, ouput = load_data()
+    plans_by_area, areas_by_zip, zips_for_query = load_data()
     merged = merge()
-    import pdb
-    pdb.set_trace()
-    output(merged)
+    merged = merged.drop_duplicates('zipcode', keep=False)
+    results = zips_for_query.merge(merged, on='zipcode', how='left')
+    results['rate'] = results[1]
+    results = results[['zipcode', 'rate']]
+    output(results)
