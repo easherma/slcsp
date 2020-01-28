@@ -56,13 +56,29 @@ def find_zips_in_multiple_rate_areas(zip_data):
 
 
 def find_second_lowest_plan(plan_data):
-    pass
+    benchmark_rates = list()
+    multiples = [plan for plan in silver_plans if silver_plans.count(plan) > 1]
+    for index, entry in enumerate(plan_data):
+        entry_key = entry[1]
+        plans_key = plan_data[index][1]
+        benchmark_rate = {
+            plans_key: sorted(
+                set([
+                    entry[0] for entry in plan_data
+                    if entry_key == plans_key
+                ]))[1]
+        }
+
+        print(benchmark_rate)
+
+    return benchmark_rates
 
 
 if __name__ == "__main__":
     zips_to_query = process_query()
     zip_data = load_zips(zips_to_query)
     silver_plans = load_plans()
+    benchmark_plans = find_second_lowest_plan(silver_plans)
     dupes = find_zips_in_multiple_rate_areas(zip_data)
     no_ambigious_zips = [zip for zip in zip_data if zip not in dupes]
     pdb.set_trace()

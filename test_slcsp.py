@@ -71,6 +71,7 @@ def test_zip_in_more_than_one_rate_area(with_data):
 
 
 def test_plans_are_only_silver():
+    silver_plans = load_plans()
     # we filter out plans when loading, lets make sure none snuck in
     pass
 
