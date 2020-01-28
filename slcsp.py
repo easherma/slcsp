@@ -56,6 +56,10 @@ def find_zips_in_multiple_rate_areas(zip_data):
 
 
 def find_second_lowest_plan(plan_data):
+    """
+    for all the plan data tuples,find the ones that have the state/area in common
+    , group them, filter duplicates, sort them, return the second lowest value
+    """
     benchmark_rates = list()
     multiples = [plan for plan in silver_plans if silver_plans.count(plan) > 1]
     for index, entry in enumerate(plan_data):
