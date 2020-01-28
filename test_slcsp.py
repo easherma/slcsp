@@ -1,5 +1,5 @@
 # notes from the readme + puesdocode
-from slcsp import process_query
+from slcsp import *
 import pytest
 
 """
@@ -34,6 +34,16 @@ def test_one_is_none():
 """
 
 
+@pytest.fixture(scope='module')
+def with_data():
+    zips_to_query = process_query()
+    zip_data = load_zips(zips_to_query)
+    silver_plans = load_plans()
+    dupes = find_zips_in_multiple_rate_areas(zip_data)
+    no_ambigious_zips = [zip for zip in zip_data if zip not in dupes]
+    assert len(dupes) == 32
+
+
 def test_ouput(capsys):
     process_query()
     captured = capsys.readouterr()
@@ -45,12 +55,19 @@ def test_ouput(capsys):
     assert last_zip == '31551'
 
 
-def test_zip_in_more_than_one_rate_area():
-    example = [item for item in zip_data if item[0] == '56097']
-    tests = [item for item in zip_data if item[0] == '56097']
-    tests1 = [item for item in zip_data if item[0] == '39845']
-    zip_counts = [(zip_data.count(zip), zip_data[zip]) for zip in zip_data]
+def test_zip_in_more_than_one_rate_area(with_data):
     pass
+    # import pdb
+    # pdb.set_trace()
+    #
+    # # for refrence, counts of occurence next to each tuple
+    # # zip_counts = [[zip_data.count(zip), zip] for zip in zip_data]
+    # assert len(dupes) == 32
+    # example = [item for item in zip_data if item[0] == '56097']
+    # tests = [item for item in zip_data if item[0] == '56097']
+    # tests1 = [item for item in zip_data if item[0] == '39845']
+    # zip_counts = [(zip_data.count(zip), zip_data[zip]) for zip in zip_data]
+    # pass
 
 
 def test_plans_are_only_silver():

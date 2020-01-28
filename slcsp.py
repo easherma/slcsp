@@ -15,7 +15,7 @@ def process_query():
         return zips
 
 
-def load_zips():
+def load_zips(zips_to_query):
     with open('./data/zips.csv', 'r', newline='') as file:
         reader = csv.DictReader(file)
         zip_data = list()
@@ -42,8 +42,7 @@ def load_plans():
 def find_zips_in_multiple_rate_areas(zip_data):
     # list of tuples to remove
     zips_in_multiple_rate_areas = list()
-    # for refrence, counts of occurence next to each tuple
-    zip_counts = [[zip_data.count(zip), zip] for zip in zip_data]
+
     # filter to only test multple occurence tuples
     multiples = [zip for zip in zip_data if zip_data.count(zip) > 1]
 
@@ -56,8 +55,14 @@ def find_zips_in_multiple_rate_areas(zip_data):
     return zips_in_multiple_rate_areas
 
 
-zips_to_query = process_query()
-zip_data = load_zips()
-silver_plan_data = load_plans()
-dupes = find_zips_in_multiple_rate_areas(zip_data)
-pdb.set_trace()
+def find_second_lowest_plan(plan_data):
+    pass
+
+
+if __name__ == "__main__":
+    zips_to_query = process_query()
+    zip_data = load_zips(zips_to_query)
+    silver_plans = load_plans()
+    dupes = find_zips_in_multiple_rate_areas(zip_data)
+    no_ambigious_zips = [zip for zip in zip_data if zip not in dupes]
+    pdb.set_trace()
