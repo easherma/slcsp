@@ -1,3 +1,4 @@
+import pdb
 import csv
 import sys
 
@@ -7,8 +8,11 @@ def process_query():
         reader = csv.DictReader(output)
         output_writer = csv.DictWriter(sys.stdout, fieldnames=reader.fieldnames)
         output_writer.writeheader()
+        zips = []
         for row in reader:
+            zips.append(row['zipcode'])
             output_writer.writerow(row)
+        return zips
 
 
 def load_file(filepath):
@@ -17,4 +21,4 @@ def load_file(filepath):
         return reader
 
 
-process_query()
+zips_to_query = process_query()
