@@ -30,6 +30,10 @@ and some notes in the test file on what to test for.
 
 # What I learned
 
+I was reminded at how different coding excercises can be from day to day development work. Additionally, I was reminded at how different it is to code under a time pressure, and how it really affects my judgement and descion-making process. 
+
+Overall, doing coding excersises is itself a skill. Being self-taught and having always worked in results-driven situations, doing coding excercises and doing those excersies under arbitrary time pressures are both areas where I have a lot of room to grow. 
+
 Although I used to use pandas all the time for data science/ETL work, it had been a minute. I learned that I was a bit rusty on the syntax. Also, it was hard to shoehorn my knowledge/workflow of pandas into a more application/test-driven development mindset, so I spent part of my time researching that instead of writing a solution. 
 
 # What I'd do differently
