@@ -43,3 +43,4 @@ Well, I made an actually properly working version using pandas here: https://git
 Furthermore, I would've started with a simple, naive approach using built-in python functionality. This would've gotten me results faster, and been easier to write tests for. A naive approach wouldn't scale well or be as flexible; this is where a highly optimized tool like pandas would come in handy; but only _after_ there is already a base level of functionality + tests to verify output.
 
 I'm probably going to make an attempt at the latter, for my own sanity + good practice experience if nothing else. :-)
+( this is in progress @ https://github.com/easherma/slcsp/tree/vanilla-python )
