@@ -45,6 +45,10 @@ def test_ouput(capsys):
     assert last_zip == '31551'
 
 
+def test_zip_in_more_than_one_rate_area():
+    pass
+
+
 """
 Additional information tests
 

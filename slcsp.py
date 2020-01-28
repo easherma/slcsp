@@ -15,10 +15,21 @@ def process_query():
         return zips
 
 
-def load_file(filepath):
-    with open(filepath, 'r', newline='') as file:
+def load_zips():
+    with open('./data/zips.csv', 'r', newline='') as file:
         reader = csv.DictReader(file)
-        return reader
+        zip_data = list()
+        for row in reader:
+            if row['zipcode'] in zips_to_query:
+                row['rate_area_tuple'] = (row['state'], row['rate_area'])
+                zip_data.append(row)
+        return zip_data
+
+
+def find_zips_in_multiple_rate_areas(zip_data):
+    pass
 
 
 zips_to_query = process_query()
+zip_data = load_zips()
+pdb.set_trace()
