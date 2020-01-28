@@ -40,20 +40,20 @@ def load_plans():
 
 
 def find_zips_in_multiple_rate_areas(zip_data):
-    # list of zips to return true
-    find_zips_in_multiple_rate_areas = list()
+    # list of tuples to remove
+    zips_in_multiple_rate_areas = list()
     # for refrence, counts of occurence next to each tuple
     zip_counts = [[zip_data.count(zip), zip] for zip in zip_data]
     # filter to only test multple occurence tuples
     multiples = [zip for zip in zip_data if zip_data.count(zip) > 1]
-    import pdb
-    pdb.set_trace()
+
     for test_case in multiples:
         test = [item for item in zip_data if item[0] == test_case[0]]
         test_set = set(test)
         if len(test_set) > 1:
             # this means a zip is in more than one rate area
-            zip_data.pop(test)
+            zips_in_multiple_rate_areas += test
+    return zips_in_multiple_rate_areas
 
 
 zips_to_query = process_query()
