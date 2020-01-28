@@ -1,4 +1,6 @@
 # notes from the readme + puesdocode
+from slcsp import process_query
+import pytest
 
 """
 Tests for Expected output
@@ -32,6 +34,19 @@ def test_one_is_none():
 """
 
 
+def test_ouput(capsys):
+    process_query()
+    captured = capsys.readouterr()
+    first_line = captured.out.split('\n')[0]
+    fifth_zip = captured.out.split('\n')[5][:5]
+    last_zip = captured.out.split('\n')[-2]
+    import pdb
+    pdb.set_trace()
+    assert first_line == 'zipcode,rate\r'
+    assert fifth_zip == '51012'
+    assert last_zip == '31551'
+
+
 """
 Additional information tests
 
@@ -56,7 +71,7 @@ This feels like misdirection
 In that case, the answer is ambiguous
 and should be left blank."
 
-Ok, we can test this and correct the output accordingly. Seems like an odd request though. 
+Ok, we can test this and correct the output accordingly. Seems like an odd request though.
 
 This feels a little ambiguous. What about a case like this?
 areas_by_zip[areas_by_zip['zipcode']=='99350']
