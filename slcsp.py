@@ -33,29 +33,31 @@ def load_plans():
         plan_data = list()
         for row in reader:
             if row['metal_level'] == 'Silver':
+                # TODO: second lowest
                 row['rate_area_tuple'] = (row['state'], row['rate_area'])
                 plan_data.append((row['rate'], row['rate_area_tuple']))
         return plan_data
 
 
 def find_zips_in_multiple_rate_areas(zip_data):
-    dupes = list()
+    # list of zips to return true
+    find_zips_in_multiple_rate_areas = list()
+    # for refrence, counts of occurence next to each tuple
+    zip_counts = [[zip_data.count(zip), zip] for zip in zip_data]
+    # filter to only test multple occurence tuples
+    multiples = [zip for zip in zip_data if zip_data.count(zip) > 1]
     import pdb
     pdb.set_trace()
-    for i, zip in enumerate(zip_data):
-        compare = zip_data[i]['zipcode'], zip_data[i]['rate_area_tuple']
-
-        compare1 = zip_data[i+1]['zipcode'], zip_data[i+1]['rate_area_tuple']
-        import pdb
-        pdb.set_trace()
-        print(compare, compare1)
-
-    # [zip for index, zip in enumerate(
-    #     zip_data) if zip['rate_area_tuple'] not in zip_data[index + 1:]]
-    # zip_data[0]['rate_area_tuple'] == zip_data[1]['rate_area_tuple']
+    for test_case in multiples:
+        test = [item for item in zip_data if item[0] == test_case[0]]
+        test_set = set(test)
+        if len(test_set) > 1:
+            # this means a zip is in more than one rate area
+            zip_data.pop(test)
 
 
 zips_to_query = process_query()
 zip_data = load_zips()
 silver_plan_data = load_plans()
 dupes = find_zips_in_multiple_rate_areas(zip_data)
+pdb.set_trace()

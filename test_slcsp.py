@@ -46,6 +46,15 @@ def test_ouput(capsys):
 
 
 def test_zip_in_more_than_one_rate_area():
+    example = [item for item in zip_data if item[0] == '56097']
+    tests = [item for item in zip_data if item[0] == '56097']
+    tests1 = [item for item in zip_data if item[0] == '39845']
+    zip_counts = [(zip_data.count(zip), zip_data[zip]) for zip in zip_data]
+    pass
+
+
+def test_plans_are_only_silver():
+    # we filter out plans when loading, lets make sure none snuck in
     pass
 
 
