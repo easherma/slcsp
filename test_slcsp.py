@@ -39,9 +39,7 @@ def test_ouput(capsys):
     captured = capsys.readouterr()
     first_line = captured.out.split('\n')[0]
     fifth_zip = captured.out.split('\n')[5][:5]
-    last_zip = captured.out.split('\n')[-2]
-    import pdb
-    pdb.set_trace()
+    last_zip = captured.out.split('\n')[-2][:5]
     assert first_line == 'zipcode,rate\r'
     assert fifth_zip == '51012'
     assert last_zip == '31551'
